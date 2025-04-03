@@ -52,11 +52,13 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "@lobehub/chat-plugin-sdk": "^1",
+    "@ant-design/icons": "^5.3.1",
+    "@lobehub/chat-plugin-sdk": "^1.32.4",
     "@lobehub/chat-plugins-gateway": "^1",
     "@lobehub/ui": "latest",
     "antd": "^5",
     "antd-style": "^3",
+    "d3": "^7.9.0",
     "dayjs": "^1",
     "next": "13.4.7",
     "react": "^18",
@@ -66,6 +68,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18",
     "@lobehub/lint": "latest",
+    "@types/d3": "^7.4.3",
     "@types/react": "18",
     "@vercel/node": "^2",
     "@vitest/coverage-v8": "latest",
@@ -76,10 +79,10 @@
     "husky": "^8",
     "lint-staged": "^15",
     "prettier": "^3",
-    "remark": "^14",
+    "remark": "^14.0.3",
     "remark-cli": "^11",
     "semantic-release": "^21",
-    "stylelint": "^15",
+    "stylelint": "^15.11.0",
     "typescript": "^5",
     "vitest": "latest"
   },

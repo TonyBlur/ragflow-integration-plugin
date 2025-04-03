@@ -2,15 +2,46 @@ export interface ClothesItem {
   description: string;
   name: string;
 }
-type Mood = 'happy' | 'sad' | 'anger' | 'fear' | 'surprise' | 'disgust';
+
+// RAGFlow 相关接口定义
+export interface RAGFlowConfig {
+  apiKey?: string;
+  apiUrl: string;
+}
+
+export interface KnowledgeGraphNode {
+  id: string;
+  label: string;
+  size?: number;
+  type?: string;
+}
+
+export interface KnowledgeGraphEdge {
+  label?: string;
+  source: string;
+  target: string;
+}
+
+export interface KnowledgeGraphData {
+  edges: KnowledgeGraphEdge[];
+  nodes: KnowledgeGraphNode[];
+}
+
+export interface RAGFlowSearchResult {
+  answer: string;
+  graphData?: KnowledgeGraphData;
+  sources: {
+    content: string;
+    metadata: Record<string, any>;
+  }[];
+}
 
 export interface ResponseData {
-  clothes: ClothesItem[];
-  mood: Mood;
-  today: number;
+  query: string;
+  result: RAGFlowSearchResult;
 }
 
 export interface RequestData {
-  gender: 'man' | 'woman';
-  mood: Mood;
+  config?: RAGFlowConfig;
+  query: string;
 }
