@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { RAGFlowService } from '@/services/ragflow';
+import { RAGFlowService } from '@/services/ragflow-service';
 import { RequestData, ResponseData } from '@/type';
 
 /**
