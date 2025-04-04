@@ -2,8 +2,23 @@
   "$schema": "../node_modules/@lobehub/chat-plugin-sdk/schema.json",
   "api": [
     {
-      "url": "https://ragflow-integration-plugin.vercel.app/api/ragflow",
-      "name": "queryRAGFlow",
+      "url": "https://ragflow-integration-plugin.vercel.app/api/ragflow/summary",
+      "name": "queryRAGFlowSummary",
+      "description": "通过RAGFlow知识库查询信息并获取问答摘要",
+      "parameters": {
+        "properties": {
+          "query": {
+            "description": "用户查询的问题或关键词",
+            "type": "string"
+          }
+        },
+        "required": ["query"],
+        "type": "object"
+      }
+    },
+    {
+      "url": "https://ragflow-integration-plugin.vercel.app/api/ragflow/graph",
+      "name": "queryRAGFlowGraph",
       "description": "通过RAGFlow知识库查询信息并获取知识图谱",
       "parameters": {
         "properties": {
