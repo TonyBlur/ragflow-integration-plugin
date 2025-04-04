@@ -1,8 +1,8 @@
 // RAGFlow 相关接口定义
 export interface RAGFlowConfig {
-  apiKey?: string;
-  apiUrl: string;
-  chatId?: string; // 添加chatId字段，用于指定聊天ID
+  chatId?: string;
+  ragflowApiKey?: string;
+  ragflowApiUrl: string; // 添加chatId字段，用于指定聊天ID
 }
 
 export interface KnowledgeGraphNode {

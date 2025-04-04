@@ -11,7 +11,7 @@ const Render = memo(() => {
 
   // 将 handleSearch 函数定义提前，解决 no-use-before-define 错误
   const handleSearch = async (query: string) => {
-    if (!config?.apiUrl) {
+    if (!config?.ragflowApiUrl) {
       // 如果没有配置API URL，提示用户
       console.error('请先在插件设置中配置RAGFlow API地址');
       return;
@@ -55,10 +55,10 @@ const Render = memo(() => {
 
     // 获取插件配置
     lobeChat.getPluginSettings().then((settings) => {
-      if (settings?.apiUrl) {
+      if (settings?.RAGFLOW_API_URL) {
         setConfig({
-          apiKey: settings.apiKey,
-          apiUrl: settings.apiUrl,
+          ragflowApiKey: settings.RAGFLOW_API_KEY,
+          ragflowApiUrl: settings.RAGFLOW_API_URL,
         });
       }
     });

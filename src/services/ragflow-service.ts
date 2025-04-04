@@ -19,16 +19,16 @@ export const RAGFlowService = {
     mode: APIMode = 'summary',
   ): Promise<RAGFlowSearchResult> {
     try {
-      const { apiUrl, apiKey, chatId = 'default' } = config;
+      const { ragflowApiUrl, ragflowApiKey, chatId = 'default' } = config;
 
       // 构建请求头
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
       };
 
-      // 如果提供了apiKey，添加到请求头
-      if (apiKey) {
-        headers['Authorization'] = `Bearer ${apiKey}`;
+      // 如果提供了API密钥，添加到请求头
+      if (ragflowApiKey) {
+        headers['Authorization'] = `Bearer ${ragflowApiKey}`;
       }
 
       // 使用 OpenAI 兼容的消息格式
@@ -42,7 +42,7 @@ export const RAGFlowService = {
       // 构建符合 OpenAI 兼容 API 的请求体
       const requestBody = {
         // RAGFlow会自动解析，可以设置为任意值
-messages, 
+        messages,
         model: 'ragflow-model',
         stream: false, // 默认不使用流式响应
       };
@@ -51,15 +51,15 @@ messages,
       if (mode === 'knowledgeGraph') {
         messages.unshift({
           content: '请生成包含知识图谱的完整回答，并确保包含所有相关实体和关系。',
-          role: 'system'
+          role: 'system',
         });
       }
 
       // 使用 OpenAI 兼容的 API 端点
       const endpoint = `/api/v1/chats_openai/${chatId}/chat/completions`;
-      
+
       // 发送请求到 RAGFlow 服务
-      const response = await fetch(`${apiUrl}${endpoint}`, {
+      const response = await fetch(`${ragflowApiUrl}${endpoint}`, {
         body: JSON.stringify(requestBody),
         headers,
         method: 'POST',
@@ -74,11 +74,11 @@ messages,
       // 处理 OpenAI 兼容格式的响应
       // 从返回的 choices 中提取回答内容
       const answer = data.choices?.[0]?.message?.content || '暂无回答';
-      
+
       // 提取源文档信息（如果有的话）
       // 注意：OpenAI 兼容格式可能需要在自定义属性中查找源文档
       const sources = data.sources || [];
-      
+
       // 提取知识图谱数据（如果有的话）
       const graphData = data.graph_data || {
         edges: [],

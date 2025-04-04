@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const { query, config } = req.body as RequestData;
 
     // 确保配置了RAGFlow API URL
-    if (!config?.apiUrl) {
+    if (!config?.ragflowApiUrl) {
       return res.status(400).json({
         query,
         result: {

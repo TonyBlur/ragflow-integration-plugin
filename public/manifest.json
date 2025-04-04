@@ -46,20 +46,20 @@
   "settings": {
     "type": "object",
     "properties": {
-      "apiUrl": {
+      "RAGFLOW_API_URL": {
         "title": "RAGFlow API地址",
-        "description": "RAGFlow服务的API地址，例如：http://your-ragflow-server",
+        "description": "RAGFlow服务的API地址，例如：http://your-ragflow.server",
         "type": "string",
         "format": "url"
       },
-      "apiKey": {
+      "RAGFLOW_API_KEY": {
         "title": "API密钥（可选）",
         "description": "如果RAGFlow服务需要鉴权，请填入API密钥",
         "type": "string",
         "format": "password"
       }
     },
-    "required": ["apiUrl"]
+    "required": ["RAGFLOW_API_URL"]
   },
   "ui": {
     "height": 600,
