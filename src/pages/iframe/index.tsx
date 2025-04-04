@@ -1,7 +1,7 @@
 import { lobeChat } from '@lobehub/chat-plugin-sdk/client';
 import { memo, useEffect, useState } from 'react';
 
-import RAGFlowRender from '@/components/RAGFlowRender';
+import RenderComponent from '@/components/Render';
 import { RAGFlowConfig, ResponseData } from '@/type';
 
 const Render = memo(() => {
@@ -75,7 +75,7 @@ const Render = memo(() => {
     });
   }, []);
 
-  return <RAGFlowRender loading={loading} query={query || data?.query} result={data?.result} />;
+  return <RenderComponent loading={loading} query={query || data?.query} result={data?.result} />;
 });
 
 export default Render;
