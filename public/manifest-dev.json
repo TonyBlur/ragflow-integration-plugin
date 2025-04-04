@@ -33,9 +33,9 @@
     }
   ],
   "author": "TonyBlu",
-  "createdAt": "2025-04-03",
+  "createdAt": "2025-04-04",
   "gateway": "https://ragflow-integration-plugin.vercel.app/api/gateway",
-  "homepage": "https://github.com/lobehub/chat-plugin-template",
+  "homepage": "https://github.com/TonyBlu/ragflow-integration-plugin",
   "identifier": "ragflow-integration-plugin",
   "meta": {
     "avatar": "🧠",
@@ -44,22 +44,22 @@
     "description": "通过RAGFlow知识库查询信息，并以知识图谱方式展示结果"
   },
   "settings": {
+    "type": "object",
     "properties": {
       "apiUrl": {
         "title": "RAGFlow API地址",
         "description": "RAGFlow服务的API地址，例如：http://your-ragflow-server",
         "type": "string",
-        "format": "url",
-        "required": true
+        "format": "url"
       },
       "apiKey": {
         "title": "API密钥（可选）",
         "description": "如果RAGFlow服务需要鉴权，请填入API密钥",
         "type": "string",
-        "format": "password",
-        "required": false
+        "format": "password"
       }
-    }
+    },
+    "required": ["apiUrl"]
   },
   "ui": {
     "url": "http://localhost:3400",
