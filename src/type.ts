@@ -2,6 +2,7 @@
 export interface RAGFlowConfig {
   apiKey?: string;
   apiUrl: string;
+  chatId?: string; // 添加chatId字段，用于指定聊天ID
 }
 
 export interface KnowledgeGraphNode {

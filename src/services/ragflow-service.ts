@@ -19,7 +19,7 @@ export const RAGFlowService = {
     mode: APIMode = 'summary',
   ): Promise<RAGFlowSearchResult> {
     try {
-      const { apiUrl, apiKey } = config;
+      const { apiUrl, apiKey, chatId = 'default' } = config;
 
       // 构建请求头
       const headers: Record<string, string> = {
@@ -31,28 +31,36 @@ export const RAGFlowService = {
         headers['Authorization'] = `Bearer ${apiKey}`;
       }
 
-      // 根据模式设置不同的请求参数
-      const requestParams: Record<string, any> = {
-        max_sources: 5,
-        query,
-        response_format: 'json', // 添加 response_format 参数，确保返回 JSON 格式
+      // 使用 OpenAI 兼容的消息格式
+      const messages = [
+        {
+          content: query,
+          role: 'user',
+        },
+      ];
+
+      // 构建符合 OpenAI 兼容 API 的请求体
+      const requestBody = {
+        // RAGFlow会自动解析，可以设置为任意值
+messages, 
+        model: 'ragflow-model',
+        stream: false, // 默认不使用流式响应
       };
 
-      // 根据不同的模式设置特定参数
-      if (mode === 'summary') {
-        // 摘要模式：专注于生成高质量的回答，不一定需要知识图谱
-        requestParams.prompt_type = 'chat';
-        requestParams.include_graph = false;
-      } else if (mode === 'knowledgeGraph') {
-        // 知识图谱模式：确保生成的响应包含完整的知识图谱数据
-        requestParams.prompt_type = 'knowledge_graph';
-        requestParams.include_graph = true;
-        requestParams.graph_depth = 2; // 知识图谱深度，根据需要调整
+      // 根据模式添加系统消息
+      if (mode === 'knowledgeGraph') {
+        messages.unshift({
+          content: '请生成包含知识图谱的完整回答，并确保包含所有相关实体和关系。',
+          role: 'system'
+        });
       }
 
-      // 发送请求到RAGFlow服务，参考 RAGFlow API 文档 https://ragflow.io/docs/dev/http_api_reference
-      const response = await fetch(`${apiUrl}/api/search`, {
-        body: JSON.stringify(requestParams),
+      // 使用 OpenAI 兼容的 API 端点
+      const endpoint = `/api/v1/chats_openai/${chatId}/chat/completions`;
+      
+      // 发送请求到 RAGFlow 服务
+      const response = await fetch(`${apiUrl}${endpoint}`, {
+        body: JSON.stringify(requestBody),
         headers,
         method: 'POST',
       });
@@ -63,14 +71,24 @@ export const RAGFlowService = {
 
       const data = await response.json();
 
-      // 从RAGFlow API响应中提取需要的数据
+      // 处理 OpenAI 兼容格式的响应
+      // 从返回的 choices 中提取回答内容
+      const answer = data.choices?.[0]?.message?.content || '暂无回答';
+      
+      // 提取源文档信息（如果有的话）
+      // 注意：OpenAI 兼容格式可能需要在自定义属性中查找源文档
+      const sources = data.sources || [];
+      
+      // 提取知识图谱数据（如果有的话）
+      const graphData = data.graph_data || {
+        edges: [],
+        nodes: [],
+      };
+
       return {
-        answer: data.answer || '暂无回答',
-        graphData: data.graph_data || {
-          edges: [],
-          nodes: [],
-        },
-        sources: data.sources || [],
+        answer,
+        graphData,
+        sources,
       };
     } catch (error) {
       console.error('RAGFlow查询出错:', error);
