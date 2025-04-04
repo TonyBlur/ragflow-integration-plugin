@@ -1,13 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { RAGFlowService } from '@/services/ragflow';
+import { RAGFlowService } from '@/services/ragflow-service';
 import { RequestData, ResponseData } from '@/type';
 
-/**
- * 主 RAGFlow API 处理函数
- * 注意：这是一个通用的处理函数，会根据请求决定使用哪种模式
- * 大多数情况下，推荐直接使用 /api/ragflow/summary 或 /api/ragflow/graph 端点
- */
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -21,11 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   try {
-    const {
-      query,
-      config,
-      mode = 'summary',
-    } = req.body as RequestData & { mode?: 'summary' | 'knowledgeGraph' };
+    const { query, config } = req.body as RequestData;
 
     // 确保配置了RAGFlow API URL
     if (!config?.apiUrl) {
@@ -39,8 +30,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       });
     }
 
-    // 调用RAGFlow服务进行查询，使用指定的模式
-    const result = await RAGFlowService.search(query, config, mode);
+    // 调用RAGFlow服务进行查询 - 知识图谱模式
+    const result = await RAGFlowService.search(query, config, 'knowledgeGraph');
 
     return res.status(200).json({
       query,

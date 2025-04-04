@@ -1,8 +1,3 @@
-export interface ClothesItem {
-  description: string;
-  name: string;
-}
-
 // RAGFlow 相关接口定义
 export interface RAGFlowConfig {
   apiKey?: string;

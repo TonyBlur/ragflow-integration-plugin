@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@lobehub/chat-plugin-sdk/schema.json",
   "api": [
     {
-      "url": "http://localhost:3400/api/ragflow",
+      "url": "https://ragflow-integration-plugin.vercel.app/api/ragflow",
       "name": "queryRAGFlow",
       "description": "通过RAGFlow知识库查询信息并获取知识图谱",
       "parameters": {
@@ -17,9 +17,9 @@
       }
     }
   ],
-  "author": "LobeHub",
-  "createdAt": "2023-09-03",
-  "gateway": "http://localhost:3400/api/gateway",
+  "author": "TonyBlu",
+  "createdAt": "2025-04-03",
+  "gateway": "https://ragflow-integration-plugin.vercel.app/api/gateway",
   "homepage": "https://github.com/lobehub/chat-plugin-template",
   "identifier": "ragflow-integration-plugin",
   "meta": {
