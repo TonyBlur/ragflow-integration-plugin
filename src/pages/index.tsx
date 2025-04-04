@@ -1,7 +1,7 @@
 import { lobeChat } from '@lobehub/chat-plugin-sdk/client';
 import { memo, useEffect, useState } from 'react';
 
-import RAGFlowRender from '@/components/RAGFlowRender';
+import RAGFlowRender from '@/components/Render';
 import { RAGFlowConfig, ResponseData } from '@/type';
 
 const Render = memo(() => {
@@ -65,10 +65,13 @@ const Render = memo(() => {
 
     // 获取查询参数
     lobeChat.getPluginPayload().then((payload) => {
-      if (payload?.name === 'queryRAGFlow' && payload.arguments?.query && // 如果有初始查询，立即执行
-        payload.arguments.query) {
-          handleSearch(payload.arguments.query);
-        }
+      if (
+        payload?.name === 'queryRAGFlow' &&
+        payload.arguments?.query && // 如果有初始查询，立即执行
+        payload.arguments.query
+      ) {
+        handleSearch(payload.arguments.query);
+      }
     });
   }, []);
 
