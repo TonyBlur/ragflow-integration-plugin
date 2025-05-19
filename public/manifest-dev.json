@@ -2,8 +2,8 @@
   "$schema": "../node_modules/@lobehub/chat-plugin-sdk/schema.json",
   "api": [
     {
-      "url": "https://ragflow-integration-plugin.vercel.app/api/ragflow/summary",
-      "name": "queryRAGFlowSummary",
+      "url": "http://localhost:3400/api/ragflow/summary",
+      "name": "searchRAGFlow",
       "description": "通过RAGFlow知识库查询信息并获取问答摘要",
       "parameters": {
         "properties": {
@@ -17,7 +17,7 @@
       }
     },
     {
-      "url": "https://ragflow-integration-plugin.vercel.app/api/ragflow/graph",
+      "url": "http://localhost:3400/api/ragflow/graph",
       "name": "queryRAGFlowGraph",
       "description": "通过RAGFlow知识库查询信息并获取知识图谱",
       "parameters": {
@@ -34,7 +34,7 @@
   ],
   "author": "TonyBlu",
   "createdAt": "2025-04-04",
-  "gateway": "https://ragflow-integration-plugin.vercel.app/api/gateway",
+  "gateway": "http://localhost:3400/api/gateway",
   "homepage": "https://github.com/TonyBlu/ragflow-integration-plugin",
   "identifier": "ragflow-integration-plugin",
   "meta": {
@@ -57,9 +57,14 @@
         "description": "如果RAGFlow服务需要鉴权，请填入API密钥",
         "type": "string",
         "format": "password"
+      },
+      "RAGFLOW_AGENT_ID": {
+        "title": "RAGFlow Agent ID",
+        "description": "RAGFlow 服务中已创建的 agent ID，用于指定 Agent 会话",
+        "type": "string"
       }
     },
-    "required": ["RAGFLOW_API_URL"]
+    "required": ["RAGFLOW_API_URL", "RAGFLOW_AGENT_ID"]
   },
   "ui": {
     "url": "http://localhost:3400",

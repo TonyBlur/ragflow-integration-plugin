@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@lobehub/chat-plugin-sdk/schema.json",
   "api": [
     {
-      "url": "http://localhost:3400/api/clothes",
+      "url": "http://localhost:3001/api/clothes",
       "name": "recommendClothes",
       "description": "根据用户的心情，给用户推荐他有的衣服",
       "parameters": {
@@ -34,7 +34,7 @@
   },
   "type": "standalone",
   "ui": {
-    "url": "http://localhost:3400/iframe",
+    "url": "http://localhost:3001/iframe",
     "height": 200
   },
   "version": "1"
